@@ -155,6 +155,8 @@ const slug=s=>s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").re
 const todayISO=()=>new Date().toISOString().slice(0,10);
 const fmtDate=iso=>{const[y,m,d]=iso.split("-");return d+"/"+m;};
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const parseNum=v=>{if(v==null)return null;let s=String(v).trim().replace(',','.');if(s==='')return null;const n=Number(s);return isNaN(n)?null:n;};
+const fmtN=n=>n==null?"—":String(n).replace('.',',');
 let storageOk=true;
 function read(k,def){try{const r=localStorage.getItem(k);return r?JSON.parse(r):def;}catch(e){storageOk=false;return def;}}
 function write(k,v){try{localStorage.setItem(k,JSON.stringify(v));return true;}catch(e){storageOk=false;return false;}}
@@ -264,13 +266,13 @@ function exRow(e,i){
         <div class="exs">${e.s} × ${e.r}${e.note?` · <span style="color:var(--faint)">${esc(e.note)}</span>`:""}</div>
       </div>
       <div style="text-align:right">
-        ${last?`<div class="lastw">${last.w}<small>kg×${last.r}</small></div>`:`<span style="font-size:12px;color:var(--faint);font-weight:600">NOVO</span>`}
+        ${last?`<div class="lastw">${fmtN(last.w)}<small>kg×${last.r}</small></div>`:`<span style="font-size:12px;color:var(--faint);font-weight:600">NOVO</span>`}
         <div class="lastd">${last?"últ. "+fmtDate(last.date):"registrar"}</div>
       </div></button>
     ${open?`<div style="padding:0 14px 16px;animation:pop .18s ease">
       <div style="height:2px;background:var(--ink);margin-bottom:14px"></div>
       <div style="display:flex;gap:10px;align-items:flex-end">
-        <div class="fld"><label>Peso · kg</label><input type="number" inputmode="decimal" id="w${i}" placeholder="${last?last.w:"0"}"></div>
+        <div class="fld"><label>Peso · kg</label><input type="text" inputmode="decimal" id="w${i}" placeholder="${last?fmtN(last.w):"0"}"></div>
         <div class="fld"><label>Reps</label><input type="number" inputmode="decimal" id="r${i}" placeholder="${last?last.r:"0"}"></div>
         <button class="save" id="sv${i}">Salvar</button>
       </div><p id="msg${i}" style="font-size:12.5px;color:#8a6d00;margin-top:11px;font-weight:700;display:none"></p>
@@ -286,14 +288,16 @@ function bindEx(w){
     const wi=app.querySelector("#w"+i),ri=app.querySelector("#r"+i),sv=app.querySelector("#sv"+i),msg=app.querySelector("#msg"+i);
     const upd=()=>{
       const ok=wi.value!==""&&ri.value!=="";sv.classList.toggle("on",ok);
-      const beats=last&&wi.value!==""&&Number(wi.value)>last.w;
+      const beats=last&&wi.value!==""&&parseNum(wi.value)>last.w;
       sv.textContent=beats?"▲ Salvar":"Salvar";
-      if(beats){msg.style.display="block";msg.textContent=`▲ acima da última vez (${last.w}kg) — progressão`;}else msg.style.display="none";
+      if(beats){msg.style.display="block";msg.textContent=`▲ acima da última vez (${fmtN(last.w)}kg) — progressão`;}else msg.style.display="none";
     };
     wi.oninput=upd;ri.oninput=upd;
     sv.onclick=()=>{
       if(wi.value===""||ri.value==="")return;
-      const k=slug(e.n);LOG[k]=[...(LOG[k]||[]),{date:todayISO(),w:Number(wi.value),r:Number(ri.value)}];
+      const wv=parseNum(wi.value),rv=parseNum(ri.value);
+      if(wv==null||rv==null){toast("número inválido",1);return;}
+      const k=slug(e.n);LOG[k]=[...(LOG[k]||[]),{date:todayISO(),w:wv,r:rv}];
       const ok=write(K_LOG,LOG);toast(ok?"registrado":"não salvou — backup",!ok);openEx=null;workout(w.id);
     };
     if(wi)wi.focus();
@@ -313,13 +317,13 @@ function progress(){
   const entries=Object.keys(LOG).filter(k=>(LOG[k]||[]).length&&names[k])
     .map(k=>({key:k,...names[k],hist:LOG[k]})).sort((a,b)=>(b.prio===a.prio?0:b.prio?1:-1));
   const list=entries.length?entries.map(e=>{
-    const best=Math.max(...e.hist.map(x=>x.w)),delta=e.hist[e.hist.length-1].w-e.hist[0].w,st=stalled(e.hist);
+    const best=Math.max(...e.hist.map(x=>x.w)),delta=+(e.hist[e.hist.length-1].w-e.hist[0].w).toFixed(1),st=stalled(e.hist);
     return `<div class="ex${e.prio?" prio":""}" style="padding:15px">
       <div style="display:flex;justify-content:space-between;align-items:flex-start">
         <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">${e.prio?'<span class="dot"></span>':""}<span class="exn">${esc(e.n)}</span>${st?'<span class="stall">estagnou</span>':""}</div>
         <div style="text-align:right">
-          <div class="best">${best}<small>kg máx</small></div>
-          ${delta!==0?`<div class="delta" style="color:${delta>0?"var(--good)":"var(--bad)"}">${delta>0?"+":""}${delta}kg total</div>`:""}
+          <div class="best">${fmtN(best)}<small>kg máx</small></div>
+          ${delta!==0?`<div class="delta" style="color:${delta>0?"var(--good)":"var(--bad)"}">${delta>0?"+":""}${fmtN(delta)}kg total</div>`:""}
         </div></div>
       <div style="margin-top:11px">${sparkVals(e.hist.map(x=>x.w))}</div>
       <div style="font-size:10.5px;color:var(--faint);margin-top:5px;font-weight:700;text-transform:uppercase;letter-spacing:.05em">${e.hist.length} registro${e.hist.length>1?"s":""}</div></div>`;
@@ -341,10 +345,10 @@ function bodyView(){
     if(v!=null&&pv!=null&&v!==pv){const d=+(v-pv).toFixed(1);
       const goodDir=m.good==="down"?d<0:m.good==="up"?d>0:null;
       const col=goodDir===null?"var(--faint)":goodDir?"var(--good)":"var(--bad)";
-      dHtml=`<div class="td" style="color:${col}">${d>0?"+":""}${d}${m.unit}</div>`;}
+      dHtml=`<div class="td" style="color:${col}">${d>0?"+":""}${fmtN(d)}${m.unit}</div>`;}
     return `<button class="tile${bodyMetric===m.k?" sel":""}" data-m="${m.k}">
       <div class="tl">${m.label}</div>
-      <div class="tv">${v!=null?v:"—"}<small>${v!=null?m.unit:""}</small></div>${dHtml}</button>`;
+      <div class="tv">${v!=null?fmtN(v):"—"}<small>${v!=null?m.unit:""}</small></div>${dHtml}</button>`;
   }).join("");
   const mc=BM.find(m=>m.k===bodyMetric);
   const series=sorted.filter(x=>x[bodyMetric]!=null).map(x=>x[bodyMetric]);
@@ -356,7 +360,7 @@ function bodyView(){
     :`<div class="ex" style="padding:18px;margin-top:4px;text-align:center;color:#555;font-size:13px;font-weight:500">Registre ao menos 2 exames pra ver a tendência de ${esc(mc.label.toLowerCase())}.</div>`;
   const hist=sorted.length?[...sorted].reverse().map(x=>`<div class="exlist-row">
       <span style="font-weight:700">${fmtDate(x.date)}</span>
-      <span style="color:#555">${x.peso!=null?x.peso+"kg":"—"} · ${x.fat!=null?x.fat+"%":"—"} · tronco ${x.trunk!=null?x.trunk+"kg":"—"}</span></div>`).join("")
+      <span style="color:#555">${x.peso!=null?fmtN(x.peso)+"kg":"—"} · ${x.fat!=null?fmtN(x.fat)+"%":"—"} · tronco ${x.trunk!=null?fmtN(x.trunk)+"kg":"—"}</span></div>`).join("")
     :`<p style="font-size:13px;color:#555;font-weight:500;padding:8px 0">Nenhum exame registrado.</p>`;
   app.innerHTML=`<div style="animation:slideup .3s ease">
     <div class="header" style="padding-bottom:22px"><button class="back" id="back">‹ Treinos</button>
@@ -382,17 +386,17 @@ function bodySheet(){
     <p style="font-size:12.5px;color:#555;margin-bottom:18px;line-height:1.45;font-weight:500">Lance os números do seu InBody. Pode deixar em branco o que não tiver.</p>
     <div class="bfld" style="margin-bottom:14px"><label>Data</label><input type="date" id="bd" value="${todayISO()}"></div>
     <div class="bgrid">
-      <div class="bfld"><label>Peso · kg</label><input type="number" inputmode="decimal" id="bp" placeholder="0"></div>
-      <div class="bfld"><label>% Gordura</label><input type="number" inputmode="decimal" id="bf" placeholder="0"></div>
-      <div class="bfld"><label>Massa magra · kg</label><input type="number" inputmode="decimal" id="bl" placeholder="0"></div>
-      <div class="bfld"><label>Gordura tronco · kg</label><input type="number" inputmode="decimal" id="bt" placeholder="0"></div>
+      <div class="bfld"><label>Peso · kg</label><input type="text" inputmode="decimal" id="bp" placeholder="0"></div>
+      <div class="bfld"><label>% Gordura</label><input type="text" inputmode="decimal" id="bf" placeholder="0"></div>
+      <div class="bfld"><label>Massa magra · kg</label><input type="text" inputmode="decimal" id="bl" placeholder="0"></div>
+      <div class="bfld"><label>Gordura tronco · kg</label><input type="text" inputmode="decimal" id="bt" placeholder="0"></div>
     </div>
     <button class="card sbtn" id="bsave" style="width:100%">Salvar exame</button>
     <button id="bcls" style="width:100%;margin-top:12px;font-size:13px;color:var(--faint);padding:8px;font-weight:600">Cancelar</button>
   </div>`;
   document.body.appendChild(ov);
   ov.onclick=e=>{if(e.target===ov)ov.remove();};
-  const q=s=>ov.querySelector(s),num=el=>el.value===""?null:Number(el.value);
+  const q=s=>ov.querySelector(s),num=el=>parseNum(el.value);
   q("#bsave").onclick=()=>{
     const date=q("#bd").value||todayISO();
     const entry={date,peso:num(q("#bp")),fat:num(q("#bf")),lean:num(q("#bl")),trunk:num(q("#bt"))};
