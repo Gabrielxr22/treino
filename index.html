@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Treino · Estética & Simetria</title>
 <meta name="theme-color" content="#121212">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -12,8 +12,10 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23121212'/%3E%3Ctext x='32' y='46' font-family='Arial Black,Arial' font-size='40' font-weight='900' fill='%23FFD400' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E">
 <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' fill='%23121212'/%3E%3Ctext x='90' y='128' font-family='Arial Black,Arial' font-size='112' font-weight='900' fill='%23FFD400' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E">
 <link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22Treino%22%2C%22short_name%22%3A%22Treino%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23F5F5F1%22%2C%22theme_color%22%3A%22%23121212%22%2C%22start_url%22%3A%22.%22%7D">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap');
 :root{
   --bg:#F5F5F1;--ink:#121212;--white:#FFFFFF;--yellow:#FFD400;--yellowDeep:#E6BD00;
   --yellowSoft:#FFF2B8;--faint:#7C7C75;--mute:#C9C9C2;--good:#1f7a3d;--bad:#b4502e;
@@ -25,8 +27,9 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
 input[type=number]{-moz-appearance:textfield}
 body{background:var(--bg);font-family:var(--body);color:var(--ink);
   padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}
-#app{max-width:480px;margin:0 auto;min-height:100vh;position:relative}
+#app{max-width:480px;margin:0 auto;min-height:100vh;min-height:100dvh;position:relative}
 button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
 .card{transition:transform .1s ease,box-shadow .1s ease}
 .card:active{transform:translate(2px,2px);box-shadow:var(--hardSm)!important}
 @keyframes pop{0%{transform:scale(.93);opacity:0}100%{transform:scale(1);opacity:1}}
@@ -114,12 +117,64 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .bgrid{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-bottom:14px}
 .bfld label{font-size:10px;font-weight:700;color:var(--faint);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:5px}
 .bfld input{width:100%;font-family:var(--disp);font-size:20px;color:var(--ink);border:2px solid var(--ink);border-radius:10px;padding:8px 11px;outline:none;background:#fff;text-align:center}
-.bfld input[type=date]{font-family:var(--body);font-size:14px;font-weight:600}
+.bfld input[type=date]{font-family:var(--body);font-size:16px;font-weight:600}
 .toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%);font-family:var(--disp);font-size:15px;text-transform:uppercase;letter-spacing:.02em;
   padding:12px 22px;border-radius:100px;border:2px solid var(--ink);box-shadow:var(--hard);animation:pop .2s ease;z-index:90;white-space:nowrap;max-width:90%}
 .hint{font-size:12px;color:var(--faint);font-weight:500;margin:16px 2px;line-height:1.5}
+.warn{width:100%;background:#B4502E;color:#fff;border:2px solid var(--ink);border-radius:16px;padding:15px;box-shadow:var(--hard);margin-bottom:16px;text-align:left}
+.warn .wt{font-family:var(--disp);font-size:19px;text-transform:uppercase;line-height:1}
+.warn .ws{font-size:12.5px;font-weight:500;margin-top:7px;line-height:1.45}
+.warn .wb{margin-top:12px;background:#fff;color:var(--ink);border:2px solid var(--ink);border-radius:10px;font-family:var(--disp);font-size:14px;text-transform:uppercase;padding:9px 16px;box-shadow:var(--hardSm)}
 .exlist-row{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1.5px solid var(--mute);font-size:13px}
 .exlist-row:last-child{border-bottom:none}
+.rec{display:flex;align-items:stretch;gap:8px;margin-bottom:7px}
+.recPick{flex:1;display:flex;align-items:center;justify-content:space-between;gap:10px;
+  background:var(--white);border:2px solid var(--ink);border-radius:10px;padding:9px 12px;text-align:left}
+.recPick.editing{background:var(--yellowSoft)}
+.recD{font-size:11px;font-weight:800;color:var(--faint);text-transform:uppercase;letter-spacing:.05em}
+.recV{font-family:var(--disp);font-size:16px}
+.recDel{width:46px;border:2px solid var(--ink);border-radius:10px;background:var(--white);font-size:15px;flex-shrink:0}
+.recDel.armed{background:var(--bad);color:#fff;font-family:var(--disp);font-size:12px;text-transform:uppercase;width:auto;padding:0 12px}
+.editBar{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--yellowSoft);
+  border:2px solid var(--ink);border-radius:10px;padding:8px 12px;margin-bottom:12px;font-size:12px;font-weight:700}
+.editBar button{font-size:11.5px;font-weight:800;text-decoration:underline}
+.nudge{width:100%;background:var(--white);border:2px dashed var(--ink);border-radius:14px;padding:12px 15px;margin-top:13px;
+  display:flex;align-items:center;justify-content:space-between;gap:10px;font-weight:700;font-size:12.5px;text-align:left}
+.nudge .go{font-family:var(--disp);font-size:14px;text-transform:uppercase;background:var(--yellow);
+  border:2px solid var(--ink);border-radius:100px;padding:5px 13px;white-space:nowrap}
+.seg{display:flex;gap:0;border:2px solid var(--ink);border-radius:11px;overflow:hidden;margin-bottom:12px}
+.seg button{flex:1;padding:11px 8px;font-size:12px;font-weight:800;background:var(--white);text-transform:uppercase;letter-spacing:.04em}
+.seg button.on{background:var(--ink);color:var(--white)}
+.segNote{font-size:11.5px;color:#555;font-weight:500;line-height:1.45;margin-bottom:14px}
+.filePick{display:block;width:100%;background:var(--white);border:2px dashed var(--ink);border-radius:11px;
+  padding:16px;text-align:center;font-weight:700;font-size:13px;margin-bottom:10px}
+.confirmBox{background:var(--yellowSoft);border:2px solid var(--ink);border-radius:11px;padding:14px;margin-top:12px}
+.confirmBox .cline{display:flex;justify-content:space-between;font-size:12.5px;font-weight:700;padding:3px 0}
+.errBox{background:#fdecec;border:2px solid var(--bad);color:#7a2f16;border-radius:11px;padding:12px;
+  margin-top:10px;font-size:12.5px;font-weight:600;line-height:1.45}
+.fieldErr{font-size:12px;color:var(--bad);font-weight:700;margin-top:9px;line-height:1.4}
+.metaLine{font-size:12px;font-weight:600;color:#555;margin-bottom:16px;line-height:1.45}
+.wt{background:var(--white);border:2px solid var(--ink);border-radius:16px;padding:14px;margin-top:13px;box-shadow:var(--hard)}
+.wt-top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}
+.wt-lbl{font-size:10px;font-weight:800;color:var(--faint);letter-spacing:.1em;text-transform:uppercase}
+.wt-link{font-size:11.5px;font-weight:800;text-decoration:underline;white-space:nowrap;padding:2px 0}
+.wt-main{display:flex;align-items:flex-end;justify-content:space-between;gap:10px}
+.wt-num{font-family:var(--disp);font-size:38px;line-height:.85}
+.wt-num small{font-size:14px;color:var(--faint);font-weight:400;margin-left:2px}
+.wt-side{text-align:right}
+.wt-rate{font-family:var(--disp);font-size:15px;text-transform:uppercase;white-space:nowrap}
+.wt-verd{font-size:11.5px;font-weight:800;margin-top:3px;text-transform:uppercase;letter-spacing:.03em}
+.wt-entry{display:flex;gap:9px;margin-top:13px}
+.wt-entry input{flex:1;min-width:0;font-family:var(--disp);font-size:20px;border:2px solid var(--ink);border-radius:10px;
+  padding:8px 10px;outline:none;background:var(--white);text-align:center}
+.wt-entry input:focus{box-shadow:var(--hardSm)}
+.wt-save{border:2px solid var(--ink);border-radius:10px;font-family:var(--disp);font-size:15px;text-transform:uppercase;
+  padding:9px 16px;white-space:nowrap;background:var(--mute)}
+.wt-save.on{background:var(--yellow);box-shadow:var(--hardSm)}
+.wt-ok{font-size:11.5px;font-weight:700;color:var(--good);margin-top:9px}
+.verdBox{border-left:5px solid var(--faint);background:var(--bg);border-radius:9px;padding:11px 13px;margin-top:13px}
+.verdT{font-size:12.5px;font-weight:800;text-transform:uppercase;letter-spacing:.04em}
+.verdL{font-size:12.5px;color:#3f3f39;font-weight:500;line-height:1.5;margin-top:5px}
 </style>
 </head>
 <body>
@@ -150,19 +205,121 @@ const BM=[
  {k:"lean",label:"Massa magra",unit:"kg",good:"up"},
  {k:"trunk",label:"Gordura tronco",unit:"kg",good:"down"}
 ];
-const K_LOG="trainlog_v1",K_BODY="trainbody_v1",K_DONE="traindone_v1";
+const K_LOG="trainlog_v1",K_BODY="trainbody_v1",K_DONE="traindone_v1",K_META="trainmeta_v1",K_WEIGHT="trainweight_v1";
 const slug=s=>s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]+/g,"-");
-const todayISO=()=>new Date().toISOString().slice(0,10);
+const pad2=n=>String(n).padStart(2,"0");
+// Data no fuso do aparelho. toISOString() devolve UTC e, em UTC-3, jogaria
+// tudo que for registrado depois das 21h para o dia seguinte.
+const isoOf=d=>d.getFullYear()+"-"+pad2(d.getMonth()+1)+"-"+pad2(d.getDate());
+const todayISO=()=>isoOf(new Date());
 const fmtDate=iso=>{const[y,m,d]=iso.split("-");return d+"/"+m;};
+const daysBetween=(a,b)=>Math.round((new Date(b+"T00:00:00")-new Date(a+"T00:00:00"))/86400000);
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const parseNum=v=>{if(v==null)return null;let s=String(v).trim().replace(',','.');if(s==='')return null;const n=Number(s);return isNaN(n)?null:n;};
 const fmtN=n=>n==null?"—":String(n).replace('.',',');
-let storageOk=true;
-function read(k,def){try{const r=localStorage.getItem(k);return r?JSON.parse(r):def;}catch(e){storageOk=false;return def;}}
-function write(k,v){try{localStorage.setItem(k,JSON.stringify(v));return true;}catch(e){storageOk=false;return false;}}
+// Faixas aceitas por campo. Carga aceita 0 de propósito: exercício com o peso
+// do corpo (barra fixa, abdômen) é registrado como 0 kg.
+const RANGE={
+  carga:{min:0,max:500,label:"Carga",unit:"kg"},
+  reps:{min:1,max:100,int:1,label:"Reps",unit:""},
+  peso:{min:30,max:250,label:"Peso",unit:"kg"},
+  fat:{min:3,max:60,label:"% de gordura",unit:"%"},
+  lean:{min:20,max:120,label:"Massa magra",unit:"kg"},
+  trunk:{min:0,max:60,label:"Gordura de tronco",unit:"kg"}
+};
+function checkNum(raw,key){
+  const r=RANGE[key],n=parseNum(raw);
+  if(n==null)return{ok:false,msg:r.label+": digite um número."};
+  if(r.int&&!Number.isInteger(n))return{ok:false,msg:r.label+": use um número inteiro."};
+  if(n<r.min||n>r.max)return{ok:false,msg:r.label+": use um valor entre "+fmtN(r.min)+" e "+fmtN(r.max)+r.unit+"."};
+  return{ok:true,val:n};
+}
+
+// storageOk = o navegador deixa gravar. corruptKeys = gravou, mas o conteúdo
+// não é JSON válido. São problemas diferentes e pedem mensagens diferentes.
+let storageOk=true,corruptKeys=[];
+function read(k,def){
+  let raw=null;
+  try{raw=localStorage.getItem(k);}catch(e){storageOk=false;return def;}
+  if(raw==null||raw==="")return def;
+  try{return JSON.parse(raw);}
+  catch(e){
+    corruptKeys.push(k);
+    // Preserva o texto original antes que qualquer gravação futura o sobrescreva.
+    try{localStorage.setItem(k+"_corrupt",raw);}catch(_){}
+    return def;
+  }
+}
+function write(k,v){
+  try{localStorage.setItem(k,JSON.stringify(v));}catch(e){storageOk=false;return false;}
+  if(k===K_LOG||k===K_BODY||k===K_DONE||k===K_WEIGHT){META.since=(META.since||0)+1;saveMeta();}
+  return true;
+}
+function saveMeta(){try{localStorage.setItem(K_META,JSON.stringify(META));}catch(e){}}
 try{localStorage.setItem("__h__","1");localStorage.removeItem("__h__");}catch(e){storageOk=false;}
-let LOG=read(K_LOG,{}),BODY=read(K_BODY,[]),DONE=read(K_DONE,[]);
-let openEx=null,bodyMetric="trunk";
+let META=read(K_META,{lastBackup:null,since:0});
+let LOG=read(K_LOG,{}),BODY=read(K_BODY,[]),DONE=read(K_DONE,[]),WEIGHT=read(K_WEIGHT,[]);
+let openEx=null,bodyMetric="trunk",editIdx=null,armedDel=null,armedW=null,UNDO=null;
+
+function totalRecords(){return Object.values(LOG).reduce((s,a)=>s+(a?a.length:0),0);}
+function markBackup(){META.lastBackup=todayISO();META.since=0;saveMeta();}
+function needsBackup(){
+  if(totalRecords()+BODY.length+WEIGHT.length===0)return false;
+  if(!META.lastBackup)return (META.since||0)>=5;
+  return (META.since||0)>=10||daysBetween(META.lastBackup,todayISO())>=14;
+}
+
+// ——— Peso diário e média móvel de 7 dias ———
+// A pesagem de um dia é ruído (água, sal, intestino). A média de 7 dias é o sinal,
+// e é ela que o plano alimentar usa como juiz do déficit.
+const dayNum=iso=>Math.round(new Date(iso+"T00:00:00").getTime()/86400000);
+const shiftISO=(iso,n)=>{const d=new Date(iso+"T00:00:00");d.setDate(d.getDate()+n);return isoOf(d);};
+const round1=n=>Math.round(n*10)/10;
+function weightSorted(){return [...WEIGHT].sort((a,b)=>a.date<b.date?-1:a.date>b.date?1:0);}
+function avgWindow(endISO,days){
+  const end=dayNum(endISO),start=end-(days-1);
+  const vals=WEIGHT.filter(x=>{const d=dayNum(x.date);return d>=start&&d<=end;}).map(x=>x.kg);
+  if(!vals.length)return null;
+  return{avg:vals.reduce((a,b)=>a+b,0)/vals.length,n:vals.length};
+}
+function saveWeight(date,kg){
+  WEIGHT=WEIGHT.filter(x=>x.date!==date);
+  WEIGHT.push({date,kg});
+  WEIGHT.sort((a,b)=>a.date<b.date?-1:a.date>b.date?1:0);
+  return write(K_WEIGHT,WEIGHT);
+}
+// Compara a média dos últimos 7 dias com a dos 7 anteriores: a diferença é kg/semana.
+function trend(){
+  const today=todayISO(),cur=avgWindow(today,7);
+  if(!cur)return{state:"empty"};
+  const prev=avgWindow(shiftISO(today,-7),7);
+  if(!prev)return{state:"young",avg:cur.avg,n:cur.n};
+  let weeks=0;
+  for(let k=0;k<6;k++){
+    const a=avgWindow(shiftISO(today,-7*k),7),b=avgWindow(shiftISO(today,-7*(k+1)),7);
+    if(!a||!b)break;
+    if(a.avg-b.avg>-0.25)weeks++;else break;
+  }
+  return{state:"ok",avg:cur.avg,n:cur.n,rate:cur.avg-prev.avg,weeks};
+}
+// Traduz a taxa na regra que já está escrita no plano alimentar do Gabriel:
+// alvo 0,3–0,5 kg/semana; parado 2–3 semanas → cortar 150 kcal; rápido demais → somar 150.
+function verdict(t){
+  if(t.state==="empty")return{tone:"n",short:"sem registro",long:"Pese-se de manhã, em jejum, depois do banheiro. Em alguns dias a média aparece aqui."};
+  if(t.state==="young")return{tone:"n",short:t.n+" dia"+(t.n>1?"s":"")+" registrado"+(t.n>1?"s":""),
+    long:"A tendência só fica confiável com duas semanas de registro. Continue lançando todo dia."};
+  const r=t.rate;
+  if(r<=-0.7)return{tone:"b",short:"caindo rápido demais",
+    long:"Nesse ritmo o corpo cobra em músculo — e o seu InBody já mostrou a massa magra parada há dois anos. Pela regra do plano, some 150 kcal por dia."};
+  if(r<=-0.25)return{tone:"g",short:"no alvo",
+    long:"Entre 0,3 e 0,5 kg por semana é exatamente a faixa do plano. Está funcionando — não mexa em nada."};
+  if(t.weeks>=2)return{tone:"b",short:"parado há "+t.weeks+" semanas",
+    long:"O plano é direto nisso: sem queda por 2–3 semanas, corte 150 kcal por dia e reavalie. Antes disso, confira se está pesando a comida — óleo, whey, aveia e granola são onde o déficit vaza."};
+  return{tone:"n",short:"praticamente parado",
+    long:"Uma semana parada é normal: água, sal e intestino mascaram a gordura. O plano só manda cortar 150 kcal depois de 2–3 semanas assim."};
+}
+const toneVar=t=>t==="g"?"var(--good)":t==="b"?"var(--bad)":"var(--faint)";
+function rateLabel(r){const a=Math.abs(round1(r));return (r<0?"▼ ":r>0?"▲ ":"")+fmtN(a)+" kg/semana";}
 
 const app=document.getElementById("app");
 function toast(text,err){
@@ -174,7 +331,7 @@ function trainedDates(){const s=new Set();Object.values(LOG).forEach(a=>a.forEac
 function sessions(){return trainedDates().size;}
 function lastDate(w){let l=null;w.ex.forEach(e=>(LOG[slug(e.n)]||[]).forEach(x=>{if(!l||x.date>l)l=x.date;}));return l;}
 function weekDates(){const now=new Date();const sun=new Date(now);sun.setDate(now.getDate()-now.getDay());
-  return [...Array(7)].map((_,i)=>{const d=new Date(sun);d.setDate(sun.getDate()+i);return d.toISOString().slice(0,10);});}
+  return [...Array(7)].map((_,i)=>{const d=new Date(sun);d.setDate(sun.getDate()+i);return isoOf(d);});}
 const WD=["D","S","T","Q","Q","S","S"];
 function stalled(hist){
   if(!hist||hist.length<3)return false;
@@ -189,7 +346,7 @@ function stalledList(){
 }
 
 function home(){
-  openEx=null;const ok=storageOk;
+  openEx=null;editIdx=null;armedDel=null;const ok=storageOk;
   const wk=weekDates(),tdates=trainedDates(),today=todayISO();
   const doneBy={};DONE.forEach(d=>{(doneBy[d.date]=doneBy[d.date]||[]).push(d.id);});
   const week=wk.map((d,i)=>{
@@ -208,6 +365,13 @@ function home(){
       </div><span class="chev">›</span></button>`;
   }).join("");
   app.innerHTML=`<div style="padding:22px 16px 40px;animation:slideup .3s ease">
+    ${!ok?`<div class="warn"><div class="wt">⚠ Nada está sendo salvo</div>
+      <div class="ws">O navegador está bloqueando o armazenamento, então o que você registrar some ao fechar. Em Ajustes → Apps → Safari, desligue "Bloquear todos os cookies" e reabra o app. Até lá, exporte um backup antes de fechar.</div>
+      <button class="wb" id="warnBtn">Exportar backup</button></div>`:""}
+    ${corruptKeys.length?`<div class="warn" style="background:#8a5a00">
+      <div class="wt">⚠ Um dado salvo veio corrompido</div>
+      <div class="ws">O armazenamento está funcionando, mas o conteúdo de ${corruptKeys.length} chave${corruptKeys.length>1?"s":""} não pôde ser lido e foi ignorado. Não mexa no Safari — não é bloqueio. O texto original foi preservado à parte; se você tinha registros ali, restaure pelo seu último backup.</div>
+      <button class="wb" id="corruptBtn">Abrir Dados</button></div>`:""}
     <div class="board card">
       <div><p class="eyebrow">Diário de treino</p><div class="title">Estética<br><b>& Simetria</b></div></div>
       <div><div class="count">${sessions()}</div><div class="count-l">sessões</div></div>
@@ -218,7 +382,9 @@ function home(){
       <button class="tag-btn" id="dataBtn">Dados</button>
     </div>
     <div class="week">${week}</div>
+    ${weightCard()}
     ${stalls.length?`<button class="card alert" id="stallBtn"><span>⚠ ${stalls.length} exercício${stalls.length>1?"s":""} estagnado${stalls.length>1?"s":""} — hora de forçar carga</span><span class="go">ver →</span></button>`:""}
+    ${needsBackup()?`<button class="card nudge" id="nudgeBtn"><span>${META.lastBackup?`${META.since} registro${META.since>1?"s":""} desde o backup de ${fmtDate(META.lastBackup)}`:"Você ainda não guardou nenhuma cópia dos seus dados"}</span><span class="go">backup</span></button>`:""}
     <p class="hint">Toque num treino pra abrir. Faixas amarelas marcam os exercícios prioritários pra simetria — ombro lateral, posterior de coxa, glúteo e postura.</p>
     ${cards}
     <div class="ctaRow">
@@ -231,6 +397,46 @@ function home(){
   app.querySelector("#bodyBtn").onclick=bodyView;
   app.querySelector("#dataBtn").onclick=dataSheet;
   const sb=app.querySelector("#stallBtn");if(sb)sb.onclick=progress;
+  const wb=app.querySelector("#warnBtn");if(wb)wb.onclick=dataSheet;
+  const cb=app.querySelector("#corruptBtn");if(cb)cb.onclick=dataSheet;
+  const nb=app.querySelector("#nudgeBtn");if(nb)nb.onclick=dataSheet;
+  bindWeightCard(home);
+}
+
+function weightCard(){
+  const t=trend(),v=verdict(t),today=WEIGHT.find(x=>x.date===todayISO());
+  return `<div class="wt">
+    <div class="wt-top">
+      <span class="wt-lbl">Peso · média de 7 dias</span>
+      <button class="wt-link" id="wHist">histórico →</button>
+    </div>
+    <div class="wt-main">
+      <div class="wt-num">${t.avg!=null?fmtN(round1(t.avg)):"—"}<small>kg</small></div>
+      <div class="wt-side">
+        ${t.state==="ok"?`<div class="wt-rate">${rateLabel(t.rate)}</div>`:""}
+        <div class="wt-verd" style="color:${toneVar(v.tone)}">${v.short}</div>
+      </div>
+    </div>
+    <div class="wt-entry">
+      <input type="text" inputmode="decimal" id="wIn" placeholder="${today?fmtN(today.kg):"peso de hoje"}" value="${today?fmtN(today.kg):""}" aria-label="peso de hoje em kg">
+      <button class="wt-save${today?" on":""}" id="wSave">${today?"Atualizar":"Lançar"}</button>
+    </div>
+    ${today?`<div class="wt-ok">✓ hoje registrado — ${fmtN(today.kg)} kg</div>`:""}
+    <p class="fieldErr" id="wErr" style="display:none"></p>
+  </div>`;
+}
+function bindWeightCard(back){
+  const wIn=app.querySelector("#wIn");if(!wIn)return;
+  const wSave=app.querySelector("#wSave"),wErr=app.querySelector("#wErr");
+  wIn.oninput=()=>{wSave.classList.toggle("on",wIn.value.trim()!=="");wErr.style.display="none";};
+  wSave.onclick=()=>{
+    const c=checkNum(wIn.value,"peso");
+    if(!c.ok){wErr.style.display="block";wErr.textContent=c.msg;return;}
+    const ok=saveWeight(todayISO(),c.val);
+    toast(ok?"peso registrado":"NÃO salvou — exporte",!ok);
+    back();
+  };
+  const h=app.querySelector("#wHist");if(h)h.onclick=weightView;
 }
 
 function workout(id){
@@ -251,14 +457,23 @@ function workout(id){
   app.querySelector("#back").onclick=home;
   app.querySelector("#doneBtn").onclick=()=>{
     const t=todayISO();
-    if(DONE.some(d=>d.date===t&&d.id===id)){DONE=DONE.filter(d=>!(d.date===t&&d.id===id));write(K_DONE,DONE);toast("desmarcado");}
-    else{DONE.push({date:t,id});write(K_DONE,DONE);toast("treino concluído");}
+    if(DONE.some(d=>d.date===t&&d.id===id)){DONE=DONE.filter(d=>!(d.date===t&&d.id===id));const ok=write(K_DONE,DONE);toast(ok?"desmarcado":"NÃO salvou — exporte",!ok);}
+    else{DONE.push({date:t,id});const ok=write(K_DONE,DONE);toast(ok?"treino concluído":"NÃO salvou — exporte",!ok);}
     workout(id);
   };
   bindEx(w);
 }
 function exRow(e,i){
   const hist=LOG[slug(e.n)]||[],last=hist[hist.length-1],open=openEx===i,st=stalled(hist);
+  const ed=open&&editIdx!=null?hist[editIdx]:null;
+  const recs=!open?"":hist.map((x,idx)=>({x,idx})).slice(-5).reverse().map(({x,idx})=>
+    `<div class="rec">
+      <button class="recPick${editIdx===idx?" editing":""}" data-pick="${idx}">
+        <span class="recD">${fmtDate(x.date)}</span>
+        <span class="recV">${fmtN(x.w)} <span style="font-family:var(--body);font-size:11px;font-weight:700;color:var(--faint)">KG ×</span> ${x.r}</span>
+      </button>
+      <button class="recDel${armedDel===idx?" armed":""}" data-del="${idx}" aria-label="apagar registro de ${fmtDate(x.date)}">${armedDel===idx?"apagar?":"🗑"}</button>
+    </div>`).join("");
   return `<div class="ex${e.prio?" prio":""}" data-i="${i}">
     <button class="exHead" data-toggle="${i}">
       <div style="flex:1">
@@ -271,37 +486,76 @@ function exRow(e,i){
       </div></button>
     ${open?`<div style="padding:0 14px 16px;animation:pop .18s ease">
       <div style="height:2px;background:var(--ink);margin-bottom:14px"></div>
+      ${ed?`<div class="editBar"><span>Editando o registro de ${fmtDate(ed.date)}</span><button data-cancel="1">cancelar</button></div>`:""}
       <div style="display:flex;gap:10px;align-items:flex-end">
-        <div class="fld"><label>Peso · kg</label><input type="text" inputmode="decimal" id="w${i}" placeholder="${last?fmtN(last.w):"0"}"></div>
-        <div class="fld"><label>Reps</label><input type="number" inputmode="decimal" id="r${i}" placeholder="${last?last.r:"0"}"></div>
-        <button class="save" id="sv${i}">Salvar</button>
-      </div><p id="msg${i}" style="font-size:12.5px;color:#8a6d00;margin-top:11px;font-weight:700;display:none"></p>
+        <div class="fld"><label>Peso · kg</label><input type="text" inputmode="decimal" id="w${i}" placeholder="${last?fmtN(last.w):"0"}" value="${ed?fmtN(ed.w):""}"></div>
+        <div class="fld"><label>Reps</label><input type="text" inputmode="numeric" id="r${i}" placeholder="${last?last.r:"0"}" value="${ed?ed.r:""}"></div>
+        <button class="save${ed?" on":""}" id="sv${i}">${ed?"Atualizar":"Salvar"}</button>
+      </div>
+      <p id="msg${i}" style="font-size:12.5px;color:#8a6d00;margin-top:11px;font-weight:700;display:none"></p>
+      <p id="err${i}" class="fieldErr" style="display:none"></p>
+      ${recs?`<div class="lbl" style="margin-top:18px;margin-bottom:8px">Últimos registros</div>${recs}
+        <p style="font-size:11.5px;color:var(--faint);font-weight:500;line-height:1.45;margin-top:4px">Toque num registro pra corrigi-lo — a data original é mantida. A lixeira pede um segundo toque pra confirmar.</p>`:""}
     </div>`:""}</div>`;
 }
 function bindEx(w){
+  const rerender=()=>{app.querySelector("#exList").innerHTML=w.ex.map((e,j)=>exRow(e,j)).join("");bindEx(w);};
   app.querySelectorAll("[data-toggle]").forEach(b=>b.onclick=()=>{
-    const i=+b.dataset.toggle;openEx=openEx===i?null:i;
-    app.querySelector("#exList").innerHTML=w.ex.map((e,j)=>exRow(e,j)).join("");bindEx(w);
+    const i=+b.dataset.toggle;openEx=openEx===i?null:i;editIdx=null;armedDel=null;rerender();
   });
-  if(openEx!==null){
-    const i=openEx,e=w.ex[i],hist=LOG[slug(e.n)]||[],last=hist[hist.length-1];
-    const wi=app.querySelector("#w"+i),ri=app.querySelector("#r"+i),sv=app.querySelector("#sv"+i),msg=app.querySelector("#msg"+i);
-    const upd=()=>{
-      const ok=wi.value!==""&&ri.value!=="";sv.classList.toggle("on",ok);
-      const beats=last&&wi.value!==""&&parseNum(wi.value)>last.w;
-      sv.textContent=beats?"▲ Salvar":"Salvar";
-      if(beats){msg.style.display="block";msg.textContent=`▲ acima da última vez (${fmtN(last.w)}kg) — progressão`;}else msg.style.display="none";
-    };
-    wi.oninput=upd;ri.oninput=upd;
-    sv.onclick=()=>{
-      if(wi.value===""||ri.value==="")return;
-      const wv=parseNum(wi.value),rv=parseNum(ri.value);
-      if(wv==null||rv==null){toast("número inválido",1);return;}
-      const k=slug(e.n);LOG[k]=[...(LOG[k]||[]),{date:todayISO(),w:wv,r:rv}];
-      const ok=write(K_LOG,LOG);toast(ok?"registrado":"não salvou — backup",!ok);openEx=null;workout(w.id);
-    };
-    if(wi)wi.focus();
-  }
+  if(openEx===null)return;
+
+  const i=openEx,e=w.ex[i],k=slug(e.n),hist=LOG[k]||[],last=hist[hist.length-1];
+  const editing=editIdx!=null&&hist[editIdx];
+
+  app.querySelectorAll("[data-pick]").forEach(b=>b.onclick=()=>{
+    const idx=+b.dataset.pick;editIdx=editIdx===idx?null:idx;armedDel=null;rerender();
+  });
+  const cancel=app.querySelector("[data-cancel]");
+  if(cancel)cancel.onclick=()=>{editIdx=null;armedDel=null;rerender();};
+
+  // Apagar pede dois toques: o primeiro só arma o botão, o segundo confirma.
+  app.querySelectorAll("[data-del]").forEach(b=>b.onclick=()=>{
+    const idx=+b.dataset.del;
+    if(armedDel!==idx){armedDel=idx;rerender();return;}
+    const arr=(LOG[k]||[]).slice();arr.splice(idx,1);
+    if(arr.length)LOG[k]=arr;else delete LOG[k];
+    const ok=write(K_LOG,LOG);
+    armedDel=null;editIdx=null;
+    toast(ok?"registro apagado":"NÃO salvou — exporte",!ok);
+    rerender();
+  });
+
+  const wi=app.querySelector("#w"+i),ri=app.querySelector("#r"+i),
+        sv=app.querySelector("#sv"+i),msg=app.querySelector("#msg"+i),err=app.querySelector("#err"+i);
+  const upd=()=>{
+    err.style.display="none";
+    sv.classList.toggle("on",wi.value!==""&&ri.value!=="");
+    const beats=!editing&&last&&wi.value!==""&&parseNum(wi.value)>last.w;
+    sv.textContent=editing?"Atualizar":(beats?"▲ Salvar":"Salvar");
+    if(beats){msg.style.display="block";msg.textContent=`▲ acima da última vez (${fmtN(last.w)}kg) — progressão`;}
+    else msg.style.display="none";
+  };
+  wi.oninput=upd;ri.oninput=upd;
+
+  sv.onclick=()=>{
+    const cw=checkNum(wi.value,"carga");
+    if(!cw.ok){msg.style.display="none";err.style.display="block";err.textContent=cw.msg;return;}
+    const cr=checkNum(ri.value,"reps");
+    if(!cr.ok){msg.style.display="none";err.style.display="block";err.textContent=cr.msg;return;}
+    const arr=(LOG[k]||[]).slice();
+    const wasEdit=editIdx!=null&&arr[editIdx];
+    if(wasEdit)arr[editIdx]={date:arr[editIdx].date,w:cw.val,r:cr.val};
+    else arr.push({date:todayISO(),w:cw.val,r:cr.val});
+    arr.sort((a,b)=>a.date<b.date?-1:a.date>b.date?1:0);
+    LOG[k]=arr;
+    const ok=write(K_LOG,LOG);
+    toast(ok?(wasEdit?"registro atualizado":"registrado"):"NÃO salvou — exporte",!ok);
+    editIdx=null;armedDel=null;
+    // Depois de corrigir, mantém aberto pra conferir. Registro novo fecha e segue.
+    if(wasEdit)rerender();else{openEx=null;workout(w.id);}
+  };
+  if(wi&&!editing)wi.focus();
 }
 
 function sparkVals(vals){
@@ -334,6 +588,82 @@ function progress(){
       <p style="font-size:12.5px;color:#BDBDB6;margin-top:7px;font-weight:500">Peso ao longo do tempo. Subir é o objetivo.</p>
     </div><div style="padding:16px 14px 44px">${list}</div></div>`;
   app.querySelector("#back").onclick=home;
+}
+
+// Pontos cinza = pesagem do dia (ruído). Linha preta = média de 7 dias (sinal).
+// Eixo X espaçado por data de verdade, pra que um intervalo sem registro apareça como intervalo.
+function weightChart(){
+  const S=weightSorted();
+  if(S.length<2)return `<div class="ex" style="padding:18px;text-align:center;color:#555;font-size:13px;font-weight:500">Registre ao menos 2 dias pra ver a curva.</div>`;
+  const W=300,H=96,P=8;
+  const d0=dayNum(S[0].date),span=(dayNum(S[S.length-1].date)-d0)||1;
+  const avgs=S.map(x=>{const a=avgWindow(x.date,7);return a?a.avg:x.kg;});
+  const all=[...S.map(x=>x.kg),...avgs];
+  const mn=Math.min(...all),mx=Math.max(...all),rng=(mx-mn)||1;
+  const X=iso=>P+((dayNum(iso)-d0)/span)*(W-2*P);
+  const Y=v=>H-P-((v-mn)/rng)*(H-2*P);
+  const dots=S.map(x=>`<circle cx="${X(x.date).toFixed(1)}" cy="${Y(x.kg).toFixed(1)}" r="2.6" fill="#B4B4AD"/>`).join("");
+  const line=S.map((x,i)=>(i?"L":"M")+X(x.date).toFixed(1)+" "+Y(avgs[i]).toFixed(1)).join(" ");
+  return `<div class="ex" style="padding:15px">
+    <svg viewBox="0 0 ${W} ${H}" width="100%" height="${H}" preserveAspectRatio="none" role="img" aria-label="peso ao longo do tempo">
+      ${dots}<path d="${line}" fill="none" stroke="${C_INK}" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/></svg>
+    <div style="display:flex;justify-content:space-between;font-size:10.5px;color:var(--faint);font-weight:700;margin-top:7px">
+      <span>${fmtDate(S[0].date)}</span><span>${fmtN(round1(mn))}–${fmtN(round1(mx))} kg</span><span>${fmtDate(S[S.length-1].date)}</span></div>
+    <div style="font-size:11px;color:var(--faint);font-weight:600;margin-top:9px;line-height:1.5">
+      <span style="color:#B4B4AD">●</span> pesagem do dia &nbsp;·&nbsp; <b style="color:var(--ink)">—</b> média de 7 dias, o que importa</div>
+  </div>`;
+}
+function weightView(){
+  const t=trend(),v=verdict(t),S=weightSorted().reverse();
+  const hist=S.length?S.slice(0,30).map(x=>`<div class="rec">
+      <button class="recPick" style="cursor:default">
+        <span class="recD">${fmtDate(x.date)}</span><span class="recV">${fmtN(x.kg)} <span style="font-family:var(--body);font-size:11px;font-weight:700;color:var(--faint)">KG</span></span>
+      </button>
+      <button class="recDel${armedW===x.date?" armed":""}" data-wdel="${x.date}" aria-label="apagar pesagem de ${fmtDate(x.date)}">${armedW===x.date?"apagar?":"🗑"}</button>
+    </div>`).join("")
+    :`<p style="font-size:13px;color:#555;font-weight:500;padding:8px 0">Nenhuma pesagem registrada.</p>`;
+  app.innerHTML=`<div style="animation:slideup .3s ease">
+    <div class="header" style="padding-bottom:22px"><button class="back" id="back">‹ Treinos</button>
+      <div class="htitle" style="font-size:28px;margin-top:15px">Peso</div>
+      <p style="font-size:12.5px;color:#BDBDB6;margin-top:7px;font-weight:500">A média semanal é o juiz do déficit. O peso de um dia isolado não é.</p>
+    </div>
+    <div style="padding:16px 14px 44px">
+      <div class="wt" style="margin-top:0">
+        <div class="wt-top"><span class="wt-lbl">Média de 7 dias</span>
+          ${t.state==="ok"?`<span class="wt-rate">${rateLabel(t.rate)}</span>`:""}</div>
+        <div class="wt-num" style="font-size:44px">${t.avg!=null?fmtN(round1(t.avg)):"—"}<small>kg</small></div>
+        <div class="verdBox" style="border-color:${toneVar(v.tone)}">
+          <div class="verdT" style="color:${toneVar(v.tone)}">${v.short}</div>
+          <div class="verdL">${v.long}</div></div>
+      </div>
+      ${weightChart()}
+      <div class="lbl" style="margin-top:22px">Lançar ou corrigir um dia</div>
+      <div class="bgrid" style="margin-bottom:10px">
+        <div class="bfld"><label>Data</label><input type="date" id="wd" value="${todayISO()}"></div>
+        <div class="bfld"><label>Peso · kg</label><input type="text" inputmode="decimal" id="wk" placeholder="0"></div>
+      </div>
+      <p class="fieldErr" id="wErr2" style="display:none;margin-top:0;margin-bottom:10px"></p>
+      <button class="card sbtn" id="wAdd" style="width:100%">Salvar pesagem</button>
+      <div class="lbl" style="margin-top:24px">Histórico${S.length>30?" · 30 mais recentes":""}</div>
+      ${hist}
+    </div></div>`;
+  app.querySelector("#back").onclick=home;
+  app.querySelector("#wAdd").onclick=()=>{
+    const err=app.querySelector("#wErr2");err.style.display="none";
+    const c=checkNum(app.querySelector("#wk").value,"peso");
+    if(!c.ok){err.style.display="block";err.textContent=c.msg;return;}
+    const d=app.querySelector("#wd").value||todayISO();
+    const ok=saveWeight(d,c.val);
+    toast(ok?"pesagem salva":"NÃO salvou — exporte",!ok);
+    armedW=null;weightView();
+  };
+  app.querySelectorAll("[data-wdel]").forEach(b=>b.onclick=()=>{
+    const d=b.dataset.wdel;
+    if(armedW!==d){armedW=d;weightView();return;}
+    WEIGHT=WEIGHT.filter(x=>x.date!==d);
+    const ok=write(K_WEIGHT,WEIGHT);
+    armedW=null;toast(ok?"pesagem apagada":"NÃO salvou — exporte",!ok);weightView();
+  });
 }
 
 function bodyView(){
@@ -391,55 +721,197 @@ function bodySheet(){
       <div class="bfld"><label>Massa magra · kg</label><input type="text" inputmode="decimal" id="bl" placeholder="0"></div>
       <div class="bfld"><label>Gordura tronco · kg</label><input type="text" inputmode="decimal" id="bt" placeholder="0"></div>
     </div>
+    <p id="berr" class="fieldErr" style="display:none;margin-top:0;margin-bottom:12px"></p>
     <button class="card sbtn" id="bsave" style="width:100%">Salvar exame</button>
     <button id="bcls" style="width:100%;margin-top:12px;font-size:13px;color:var(--faint);padding:8px;font-weight:600">Cancelar</button>
   </div>`;
   document.body.appendChild(ov);
   ov.onclick=e=>{if(e.target===ov)ov.remove();};
-  const q=s=>ov.querySelector(s),num=el=>parseNum(el.value);
+  const q=s=>ov.querySelector(s);
   q("#bsave").onclick=()=>{
+    const berr=q("#berr");berr.style.display="none";
     const date=q("#bd").value||todayISO();
-    const entry={date,peso:num(q("#bp")),fat:num(q("#bf")),lean:num(q("#bl")),trunk:num(q("#bt"))};
-    if(entry.peso==null&&entry.fat==null&&entry.lean==null&&entry.trunk==null){toast("preencha algo",1);return;}
+    const fields=[["#bp","peso"],["#bf","fat"],["#bl","lean"],["#bt","trunk"]];
+    const entry={date,peso:null,fat:null,lean:null,trunk:null};
+    let filled=0;
+    for(const[sel,key]of fields){
+      const raw=q(sel).value.trim();
+      if(raw==="")continue;                 // campo em branco é legítimo: nem todo exame traz tudo
+      const c=checkNum(raw,key);
+      if(!c.ok){berr.style.display="block";berr.textContent=c.msg;return;}
+      entry[key]=c.val;filled++;
+    }
+    if(!filled){berr.style.display="block";berr.textContent="Preencha ao menos um dos quatro campos.";return;}
     BODY=BODY.filter(x=>x.date!==date);BODY.push(entry);
-    write(K_BODY,BODY);toast("exame salvo");ov.remove();bodyView();
+    const ok=write(K_BODY,BODY);toast(ok?"exame salvo":"NÃO salvou — exporte já",!ok);ov.remove();bodyView();
   };
   q("#bcls").onclick=()=>ov.remove();
 }
 
+// ——— Backup: validação, mesclagem e exportação ———
+
+const ISO_RE=/^\d{4}-\d{2}-\d{2}$/;
+// Devolve {log,body,done} normalizado, ou uma string com o motivo da recusa.
+// O restaurar antigo aceitava qualquer objeto e o jogava direto dentro de LOG,
+// corrompendo a base. Aqui nada entra sem conferir a forma.
+function parseBundle(text){
+  let o;
+  try{o=JSON.parse(String(text).trim());}catch(e){return "Isso não é um backup válido — o texto não está no formato JSON.";}
+  if(!o||typeof o!=="object"||Array.isArray(o))return "Isso não é um backup válido.";
+  let log=o.log,body=o.body,done=o.done,weight=o.weight;
+  if(log===undefined&&body===undefined&&done===undefined&&weight===undefined){log=o;body=[];done=[];} // backup antigo, só o log
+  log=log||{};body=body||[];done=done||[];weight=weight||[];   // backups v2 não têm peso diário
+  if(typeof log!=="object"||Array.isArray(log))return "Backup inválido: a parte de treinos está corrompida.";
+  if(!Array.isArray(body)||!Array.isArray(done))return "Backup inválido: a parte de exames ou de dias concluídos está corrompida.";
+  if(!Array.isArray(weight))return "Backup inválido: a parte de pesagens está corrompida.";
+  for(const k of Object.keys(log)){
+    if(!Array.isArray(log[k]))return `Backup inválido: os registros de "${k}" não formam uma lista.`;
+    for(const e of log[k]){
+      if(!e||typeof e!=="object"||!ISO_RE.test(e.date||"")||typeof e.w!=="number"||typeof e.r!=="number")
+        return `Backup inválido: há um registro malformado em "${k}".`;
+    }
+  }
+  for(const e of body)if(!e||typeof e!=="object"||!ISO_RE.test(e.date||""))return "Backup inválido: há um exame sem data válida.";
+  for(const e of done)if(!e||typeof e!=="object"||!ISO_RE.test(e.date||"")||typeof e.id!=="string")return "Backup inválido: há um dia concluído malformado.";
+  for(const e of weight)if(!e||typeof e!=="object"||!ISO_RE.test(e.date||"")||typeof e.kg!=="number")return "Backup inválido: há uma pesagem malformada.";
+  return {log,body,done,weight};
+}
+const byDate=(a,b)=>a.date<b.date?-1:a.date>b.date?1:0;
+function mergeLog(a,b){
+  const out={};
+  Object.keys(a).forEach(k=>out[k]=a[k].slice());
+  Object.keys(b).forEach(k=>{
+    const cur=out[k]||[],seen=new Set(cur.map(x=>x.date+"|"+x.w+"|"+x.r));
+    b[k].forEach(x=>{const s=x.date+"|"+x.w+"|"+x.r;if(!seen.has(s)){seen.add(s);cur.push(x);}});
+    out[k]=cur.sort(byDate);
+  });
+  return out;
+}
+function mergeBody(a,b){const m={};a.forEach(x=>m[x.date]=x);b.forEach(x=>m[x.date]=x);return Object.values(m).sort(byDate);}
+function mergeDone(a,b){const m={};[...a,...b].forEach(x=>m[x.date+"|"+x.id]=x);return Object.values(m).sort(byDate);}
+function mergeWeight(a,b){const m={};a.forEach(x=>m[x.date]=x);b.forEach(x=>m[x.date]=x);return Object.values(m).sort(byDate);}
+const countOf=b=>({r:Object.values(b.log).reduce((s,a)=>s+a.length,0),e:b.body.length,d:b.done.length,p:(b.weight||[]).length});
+
+function backupJSON(){return JSON.stringify({v:3,log:LOG,body:BODY,done:DONE,weight:WEIGHT},null,2);}
+function downloadBackup(){
+  try{
+    const b=new Blob([backupJSON()],{type:"application/json"});
+    const u=URL.createObjectURL(b),a=document.createElement("a");
+    a.href=u;a.download="treino-backup-"+todayISO()+".json";a.click();
+    setTimeout(()=>URL.revokeObjectURL(u),1000);
+    markBackup();toast("arquivo gerado");return true;
+  }catch(e){toast("não deu — use copiar",1);return false;}
+}
+// No iPhone, o download em app da tela inicial é justamente onde o iOS falha.
+// A folha de compartilhamento nativa manda pro Arquivos, iCloud, Notas ou WhatsApp.
+async function shareBackup(){
+  const json=backupJSON();
+  try{
+    const file=new File([json],"treino-backup-"+todayISO()+".json",{type:"application/json"});
+    if(navigator.canShare&&navigator.canShare({files:[file]})){
+      await navigator.share({files:[file],title:"Backup do Treino"});
+      markBackup();toast("backup salvo");return;
+    }
+  }catch(e){
+    if(e&&e.name==="AbortError")return;   // usuário fechou a folha: não é erro
+  }
+  downloadBackup();
+}
+
 function dataSheet(){
-  const bundle={v:2,log:LOG,body:BODY,done:DONE};
-  const json=JSON.stringify(bundle,null,2);
-  const has=Object.keys(LOG).length>0||BODY.length>0||DONE.length>0;
+  const has=totalRecords()>0||BODY.length>0||DONE.length>0||WEIGHT.length>0;
+  const mine=countOf({log:LOG,body:BODY,done:DONE,weight:WEIGHT});
+  let mode="merge",pending=null;
   const ov=document.createElement("div");ov.className="overlay";
   ov.innerHTML=`<div class="sheet">
     <div class="grab"></div>
     <div class="disp" style="font-size:26px;margin-bottom:5px">Seus dados</div>
-    <p style="font-size:12.5px;color:#555;margin-bottom:18px;line-height:1.45;font-weight:500">
+    <p style="font-size:12.5px;color:#555;margin-bottom:14px;line-height:1.45;font-weight:500">
       Tudo fica salvo neste aparelho. Guarde uma cópia pra trocar de celular ou por segurança.</p>
-    <div class="lbl">Exportar</div>
-    <div style="display:flex;gap:10px;margin-bottom:22px">
-      <button class="card sbtn" id="cp" style="opacity:${has?1:.4}">Copiar</button>
-      <button class="card sbtnAlt" id="dl" style="opacity:${has?1:.4}">Baixar</button></div>
+    <div class="metaLine">Hoje aqui: <b>${mine.r} registro${mine.r===1?"":"s"}</b> · <b>${mine.p} pesage${mine.p===1?"m":"ns"}</b> · <b>${mine.e} exame${mine.e===1?"":"s"}</b> · <b>${mine.d} dia${mine.d===1?"":"s"} concluído${mine.d===1?"":"s"}</b><br>
+      ${META.lastBackup?`Último backup em ${fmtDate(META.lastBackup)} · ${META.since||0} alteraç${(META.since||0)===1?"ão":"ões"} desde então`:"Você ainda não guardou nenhuma cópia."}</div>
+    <div class="lbl">Guardar uma cópia</div>
+    <button class="card sbtn" id="sh" style="width:100%;opacity:${has?1:.4}">Salvar backup</button>
+    <div style="display:flex;gap:10px;margin-top:10px;margin-bottom:22px">
+      <button class="card sbtnAlt" id="dl" style="opacity:${has?1:.4}">Baixar arquivo</button>
+      <button class="card sbtnAlt" id="cp" style="opacity:${has?1:.4}">Copiar texto</button></div>
     <div class="lbl">Restaurar</div>
-    <textarea class="area" id="pst" placeholder="Cole aqui um backup salvo anteriormente…"></textarea>
-    <button class="card sbtn" id="rst" style="width:100%;margin-top:10px;opacity:.4">Restaurar dados</button>
+    <div class="seg" id="seg">
+      <button data-mode="merge" class="on">Mesclar</button>
+      <button data-mode="replace">Substituir</button></div>
+    <p class="segNote" id="segNote">Junta o backup com o que já está neste aparelho, sem apagar nada e sem duplicar.</p>
+    <label class="filePick" for="fp">📄 Escolher arquivo de backup</label>
+    <input type="file" id="fp" accept=".json,application/json" style="position:absolute;width:1px;height:1px;opacity:0">
+    <textarea class="area" id="pst" placeholder="…ou cole aqui o texto do backup"></textarea>
+    <div id="out"></div>
+    <button class="card sbtn" id="rst" style="width:100%;margin-top:10px;opacity:.4">Conferir backup</button>
+    ${UNDO?`<button class="card sbtnAlt" id="undo" style="width:100%;margin-top:10px">Desfazer a última restauração</button>`:""}
     <button id="cls" style="width:100%;margin-top:14px;font-size:13px;color:var(--faint);padding:8px;font-weight:600">Fechar</button>
   </div>`;
   document.body.appendChild(ov);
   ov.onclick=e=>{if(e.target===ov)ov.remove();};
   const q=s=>ov.querySelector(s);
-  q("#cp").onclick=()=>{if(!has)return;navigator.clipboard.writeText(json).then(()=>toast("copiado")).catch(()=>toast("copie manualmente",1));};
-  q("#dl").onclick=()=>{if(!has)return;try{const b=new Blob([json],{type:"application/json"});const u=URL.createObjectURL(b);const a=document.createElement("a");a.href=u;a.download="treino_backup.json";a.click();URL.revokeObjectURL(u);toast("arquivo gerado");}catch(e){toast("use copiar",1);}};
-  const pst=q("#pst"),rst=q("#rst");
-  pst.oninput=()=>{rst.style.opacity=pst.value.trim()?1:.4;};
-  rst.onclick=()=>{try{
-    const o=JSON.parse(pst.value.trim());if(typeof o!=="object"||Array.isArray(o))throw 0;
-    if(o.log||o.body||o.done){LOG=o.log||{};BODY=o.body||[];DONE=o.done||[];}
-    else{LOG=o;BODY=[];DONE=[];}
-    write(K_LOG,LOG);write(K_BODY,BODY);write(K_DONE,DONE);
-    toast("restaurado");ov.remove();home();
-  }catch(e){toast("texto inválido",1);}};
+  const pst=q("#pst"),rst=q("#rst"),out=q("#out");
+
+  q("#sh").onclick=()=>{if(has)shareBackup().then(()=>{});};
+  q("#dl").onclick=()=>{if(has)downloadBackup();};
+  q("#cp").onclick=()=>{if(!has)return;navigator.clipboard.writeText(backupJSON())
+    .then(()=>{markBackup();toast("copiado");}).catch(()=>toast("copie manualmente",1));};
+
+  ov.querySelectorAll("[data-mode]").forEach(b=>b.onclick=()=>{
+    mode=b.dataset.mode;pending=null;out.innerHTML="";
+    ov.querySelectorAll("[data-mode]").forEach(x=>x.classList.toggle("on",x===b));
+    q("#segNote").textContent=mode==="merge"
+      ? "Junta o backup com o que já está neste aparelho, sem apagar nada e sem duplicar."
+      : "Apaga tudo que está neste aparelho e deixa só o conteúdo do backup.";
+    rst.textContent="Conferir backup";
+  });
+
+  const armed=()=>{rst.style.opacity=pst.value.trim()?1:.4;pending=null;out.innerHTML="";rst.textContent="Conferir backup";};
+  pst.oninput=armed;
+  q("#fp").onchange=ev=>{
+    const f=ev.target.files&&ev.target.files[0];if(!f)return;
+    const rd=new FileReader();
+    rd.onload=()=>{pst.value=String(rd.result);armed();toast("arquivo carregado");};
+    rd.onerror=()=>toast("não deu pra ler o arquivo",1);
+    rd.readAsText(f);
+  };
+
+  rst.onclick=()=>{
+    if(!pst.value.trim())return;
+    if(!pending){
+      const res=parseBundle(pst.value);
+      if(typeof res==="string"){out.innerHTML=`<div class="errBox">${esc(res)}</div>`;return;}
+      pending=res;
+      const inc=countOf(res);
+      const after=mode==="merge"
+        ? countOf({log:mergeLog(LOG,res.log),body:mergeBody(BODY,res.body),done:mergeDone(DONE,res.done),weight:mergeWeight(WEIGHT,res.weight)})
+        : inc;
+      out.innerHTML=`<div class="confirmBox">
+        <div class="cline"><span>Registros de treino</span><span>${mine.r} → <b>${after.r}</b></span></div>
+        <div class="cline"><span>Pesagens</span><span>${mine.p} → <b>${after.p}</b></span></div>
+        <div class="cline"><span>Exames</span><span>${mine.e} → <b>${after.e}</b></span></div>
+        <div class="cline"><span>Dias concluídos</span><span>${mine.d} → <b>${after.d}</b></span></div>
+        <div style="font-size:11.5px;font-weight:600;color:#3a3a2e;margin-top:9px;line-height:1.45">
+          ${mode==="merge"?"O backup traz "+inc.r+" registro"+(inc.r===1?"":"s")+"; as repetições são descartadas.":"Substituir vai apagar o que está aqui hoje. Dá pra desfazer logo em seguida."}</div></div>`;
+      rst.textContent=mode==="merge"?"Confirmar mesclagem":"Confirmar substituição";
+      return;
+    }
+    UNDO={log:LOG,body:BODY,done:DONE,weight:WEIGHT};   // rede antes de aplicar
+    if(mode==="merge"){LOG=mergeLog(LOG,pending.log);BODY=mergeBody(BODY,pending.body);DONE=mergeDone(DONE,pending.done);WEIGHT=mergeWeight(WEIGHT,pending.weight);}
+    else{LOG=pending.log;BODY=pending.body;DONE=pending.done;WEIGHT=pending.weight;}
+    const ok=write(K_LOG,LOG)&&write(K_BODY,BODY)&&write(K_DONE,DONE)&&write(K_WEIGHT,WEIGHT);
+    META.since=0;saveMeta();
+    toast(ok?(mode==="merge"?"mesclado":"restaurado"):"NÃO salvou — armazenamento bloqueado",!ok);
+    ov.remove();home();
+  };
+
+  const un=q("#undo");
+  if(un)un.onclick=()=>{
+    LOG=UNDO.log;BODY=UNDO.body;DONE=UNDO.done;WEIGHT=UNDO.weight||[];UNDO=null;
+    const ok=write(K_LOG,LOG)&&write(K_BODY,BODY)&&write(K_DONE,DONE)&&write(K_WEIGHT,WEIGHT);
+    toast(ok?"desfeito":"NÃO salvou — exporte",!ok);ov.remove();home();
+  };
   q("#cls").onclick=()=>ov.remove();
 }
 
