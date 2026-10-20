@@ -182,23 +182,48 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 <script>
 const C_INK="#121212",C_YEL="#FFD400";
 const WORKOUTS=[
- {id:"A",name:"Superior · Puxar",focus:"Costas, ombro posterior, bíceps — abre o tronco e corrige postura",ex:[
-   {n:"Puxada alta / barra fixa",s:4,r:"8–10"},{n:"Remada curvada",s:3,r:"10"},
-   {n:"Face pull",s:4,r:"15",prio:1,note:"postura / deltóide posterior"},
-   {n:"Elevação lateral",s:4,r:"12–15",prio:1,note:"largura de ombro"},{n:"Rosca direta",s:3,r:"10"}]},
- {id:"B",name:"Inferior · Posterior",focus:"Posterior de coxa e glúteo — o segmento mais atrasado",ex:[
-   {n:"Terra romeno",s:4,r:"8–10",prio:1},{n:"Cadeira flexora",s:3,r:"12",prio:1},
-   {n:"Hip thrust",s:3,r:"10",prio:1,note:"glúteo"},{n:"Afundo",s:3,r:"10",note:"cada perna"},{n:"Panturrilha em pé",s:4,r:"15"}]},
- {id:"C",name:"Superior · Empurrar",focus:"Peito, ombro e tríceps — reforço duplo no deltóide lateral",ex:[
-   {n:"Supino inclinado",s:4,r:"8–10"},{n:"Desenvolvimento com halteres",s:3,r:"10"},
-   {n:"Elevação lateral",s:4,r:"15",prio:1,note:"aguenta o volume"},{n:"Crucifixo inclinado",s:3,r:"12"},{n:"Tríceps na corda",s:3,r:"12"}]},
- {id:"D",name:"Inferior · Quadríceps",focus:"Quadríceps com reforço de posterior — fecha as pernas",ex:[
-   {n:"Agachamento / leg press",s:4,r:"8–10"},{n:"Cadeira extensora",s:3,r:"12"},
-   {n:"Stiff",s:3,r:"12",prio:1,note:"posterior de novo"},{n:"Panturrilha sentado",s:4,r:"15"},{n:"Abdômen",s:3,r:"—",note:"prancha + elevação de pernas"}]},
- {id:"E",name:"Opcional · 5º dia",focus:"Só o que estiver mais atrasado na semana. Sem inventar.",ex:[
-   {n:"Elevação lateral",s:4,r:"15",prio:1},{n:"Mesa flexora",s:3,r:"12",prio:1},
-   {n:"Hip thrust",s:3,r:"12",prio:1},{n:"Face pull",s:3,r:"15",prio:1},{n:"Panturrilha",s:4,r:"15"}]}
+ {id:"A",name:"Superior · Largura + Costas",focus:"Ombro lateral e dorsal pra abrir o shape; remada e face pull pra postura",ex:[
+   {n:"Supino inclinado",s:3,r:"6–10",note:"halteres, escápulas presas"},
+   {n:"Puxada alta / barra fixa",s:3,r:"8–12",note:"pegada aberta"},
+   {n:"Elevação lateral",s:4,r:"12–20",prio:1,note:"largura de ombro, sem balanço"},
+   {n:"Remada sentada no cabo",s:3,r:"10–12",prio:1,note:"cotovelo aberto, até o peito"},
+   {n:"Face pull",s:3,r:"15–20",prio:1,note:"postura — gire os braços pra fora"},
+   {n:"Rosca direta",s:2,r:"10–15",note:"bi-set com tríceps"},
+   {n:"Tríceps na corda",s:2,r:"10–15",note:"bi-set com rosca"}]},
+ {id:"B",name:"Inferior · Glúteo + Posterior",focus:"O segmento mais atrasado. Bateu o topo das reps, sobe a carga.",ex:[
+   {n:"Hip thrust",s:4,r:"6–10",prio:1,note:"pausa de 1 s em cima"},
+   {n:"Terra romeno",s:3,r:"6–10",prio:1,note:"stiff/RDL, coluna neutra"},
+   {n:"Cadeira flexora",s:3,r:"8–12",prio:1,note:"ou mesa — desça devagar"},
+   {n:"Afundo búlgaro",s:3,r:"8–10",prio:1,note:"cada perna, tronco inclinado"},
+   {n:"Panturrilha em pé",s:4,r:"8–12",prio:1,note:"2 s alongado embaixo"},
+   {n:"Dead bug",s:3,r:"10",note:"cada lado, lombar no chão"}]},
+ {id:"C",name:"Superior · Ombro + Postura",focus:"Segundo estímulo de deltoide lateral e posterior; costas média pra corrigir o ombro pra frente",ex:[
+   {n:"Desenvolvimento com halteres",s:3,r:"6–10",note:"sentado, sem arquear"},
+   {n:"Remada com apoio no peito",s:3,r:"8–12",prio:1,note:"aperta as escápulas"},
+   {n:"Supino reto",s:3,r:"8–12",note:"máquina ou halteres"},
+   {n:"Elevação lateral no cabo",s:4,r:"12–15",prio:1,note:"unilateral, cabo por trás"},
+   {n:"Crucifixo inverso",s:3,r:"12–20",prio:1,note:"voador invertido"},
+   {n:"Tríceps francês",s:2,r:"10–15",note:"bi-set com martelo"},
+   {n:"Rosca martelo",s:2,r:"10–15",note:"bi-set com francês"}]},
+ {id:"D",name:"Inferior · Quadríceps + Glúteo",focus:"Quadríceps, mais glúteo e panturrilha; core e flexor de quadril pro baixo-ventre",ex:[
+   {n:"Agachamento / hack",s:3,r:"6–10",note:"profundidade completa"},
+   {n:"Leg press pés altos",s:3,r:"10–12",prio:1,note:"pés altos e afastados"},
+   {n:"Cadeira extensora",s:3,r:"10–15",note:"pausa de 1 s em cima"},
+   {n:"Cadeira abdutora",s:3,r:"15–20",prio:1,note:"tronco inclinado à frente"},
+   {n:"Panturrilha sentado",s:4,r:"12–15",prio:1,note:"amplitude total"},
+   {n:"Abdominal reverso",s:3,r:"10–12",note:"sem embalo"},
+   {n:"Alongamento flexor de quadril",s:2,r:"45 s",note:"cada lado, glúteo contraído"}]}
 ];
+// Exercícios de planos anteriores: o histórico continua aparecendo em Progressão.
+const LEGACY=["Remada curvada","Afundo","Crucifixo inclinado","Agachamento / leg press","Stiff","Abdômen","Mesa flexora","Panturrilha"];
+// Fila pra semanas de 3 treinos: segue A→B→C→D sem pular.
+function nextInQueue(){
+  const ids=WORKOUTS.map(w=>w.id);
+  const last=[...DONE].filter(d=>ids.includes(d.id)).sort((a,b)=>a.date<b.date?-1:a.date>b.date?1:0).pop();
+  if(!last)return ids[0];
+  if(last.date===todayISO())return null;
+  return ids[(ids.indexOf(last.id)+1)%ids.length];
+}
 const BM=[
  {k:"peso",label:"Peso",unit:"kg",good:"flat"},
  {k:"fat",label:"% Gordura",unit:"%",good:"down"},
@@ -354,13 +379,13 @@ function home(){
     return `<div class="daycol"><div class="daywd">${WD[i]}</div>
       <div class="daybox${on?" on":""}${isToday?" today":""}">${lbl}</div></div>`;
   }).join("");
-  const stalls=stalledList();
+  const stalls=stalledList(),nxt=nextInQueue();
   const cards=WORKOUTS.map(w=>{
     const l=lastDate(w),p=w.ex.filter(e=>e.prio).length;
     return `<button class="card wcard" data-w="${w.id}">
       <div class="sq">${w.id}</div>
       <div style="flex:1"><div class="wname">${esc(w.name)}</div><div class="wfocus">${esc(w.focus)}</div>
-        <div class="meta">${p?`<span class="pill">${p} priorit${p>1?"ários":"ário"}</span>`:""}
+        <div class="meta">${w.id===nxt?`<span class="pill" style="background:var(--ink);color:#fff">próximo</span>`:""}${p?`<span class="pill">${p} priorit${p>1?"ários":"ário"}</span>`:""}
           <span class="when">${l?"último · "+fmtDate(l):"ainda não treinado"}</span></div>
       </div><span class="chev">›</span></button>`;
   }).join("");
@@ -385,7 +410,7 @@ function home(){
     ${weightCard()}
     ${stalls.length?`<button class="card alert" id="stallBtn"><span>⚠ ${stalls.length} exercício${stalls.length>1?"s":""} estagnado${stalls.length>1?"s":""} — hora de forçar carga</span><span class="go">ver →</span></button>`:""}
     ${needsBackup()?`<button class="card nudge" id="nudgeBtn"><span>${META.lastBackup?`${META.since} registro${META.since>1?"s":""} desde o backup de ${fmtDate(META.lastBackup)}`:"Você ainda não guardou nenhuma cópia dos seus dados"}</span><span class="go">backup</span></button>`:""}
-    <p class="hint">Toque num treino pra abrir. Faixas amarelas marcam os exercícios prioritários pra simetria — ombro lateral, posterior de coxa, glúteo e postura.</p>
+    <p class="hint">Siga a fila A→B→C→D sem pular, seja semana de 3 ou 4 treinos. Faixas amarelas marcam os prioritários — ombro lateral, postura, glúteo e panturrilha. Bateu o topo das reps em todas as séries, sobe a carga.</p>
     ${cards}
     <div class="ctaRow">
       <button class="card cta" id="progBtn"><span class="t">Progressão</span><span class="s">peso por exercício</span></button>
@@ -567,7 +592,7 @@ function sparkVals(vals){
 }
 function progress(){
   openEx=null;
-  const names={};WORKOUTS.forEach(w=>w.ex.forEach(e=>names[slug(e.n)]={n:e.n,prio:!!e.prio}));
+  const names={};LEGACY.forEach(n=>names[slug(n)]={n:n+" (plano antigo)",prio:false});WORKOUTS.forEach(w=>w.ex.forEach(e=>names[slug(e.n)]={n:e.n,prio:!!e.prio}));
   const entries=Object.keys(LOG).filter(k=>(LOG[k]||[]).length&&names[k])
     .map(k=>({key:k,...names[k],hist:LOG[k]})).sort((a,b)=>(b.prio===a.prio?0:b.prio?1:-1));
   const list=entries.length?entries.map(e=>{
