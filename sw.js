@@ -1,7 +1,7 @@
 // Service worker do Treino: deixa o app abrir sem internet (academia sem sinal).
 // Páginas: rede primeiro com limite de 3 s, depois cache — atualizações chegam sozinhas.
 // Fontes do Google: cache primeiro, porque não mudam.
-const CACHE="treino-v4",FONTS="treino-fonts";
+const CACHE="treino-v5",FONTS="treino-fonts";
 const CORE=["./","./index.html","./manifest.webmanifest","./icon-180.png","./icon-192.png","./icon-512.png"];
 
 self.addEventListener("install",e=>{
